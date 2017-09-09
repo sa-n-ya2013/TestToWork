@@ -10,3 +10,4 @@
 |
 */
 Route::post('/user/auth', "Api\\UserController@auth");
+Route::post('/category/get', "Api\\CategoryController@get");

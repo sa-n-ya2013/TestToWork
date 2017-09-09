@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
@@ -49,7 +50,11 @@ class Handler extends ExceptionHandler
         if (strpos($request->getPathInfo(), '/api') === 0) {
             if ($exception instanceof NotFoundHttpException) {
                 return response()->json(['error' => 'Not found.'], 404);
-            } else if($exception instanceof UnauthorizedHttpException) {
+            }
+            if ($exception instanceof ModelNotFoundException) {
+                return response()->json(['error' => 'Not found.'], 404);
+            }
+            if($exception instanceof UnauthorizedHttpException) {
                 return response()->json(['error' => 'Unauthenticated.'], 401);
             }
         }

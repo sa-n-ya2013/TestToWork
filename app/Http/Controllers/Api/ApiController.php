@@ -14,11 +14,16 @@ class ApiController extends Controller
     /**
      * Отправка сообщения "Успешно"
      *
+     * @param null|array $data
      * @return Response
      */
-    public function sendOK()
+    public function sendOK($data = null)
     {
-        return response()->json(['message' => self::MESSAGE_SUCCESS]);
+        if (!is_null($data)) {
+            return response()->json(['message' => self::MESSAGE_SUCCESS, 'data' => $data]);
+        } else {
+            return response()->json(['message' => self::MESSAGE_SUCCESS]);
+        }
     }
 
     /**
