@@ -28,11 +28,10 @@ class UserController extends ApiController
             return $this->sendBadRequest();
         }
 
-        if ($email && Auth::attempt(['email' => $email, 'password' => $password])) {
-            return $this->sendOK();
-        }
-        if ($login && Auth::attempt(['login' => $login, 'password' => $password])) {
-            return $this->sendOK();
+        if ($email && Auth::attempt(['email' => $email, 'password' => $password]) ||
+            $login && Auth::attempt(['login' => $login, 'password' => $password])
+        ) {
+            return $this->sendOK(Auth::user()->createToken('API')->accessToken);
         }
 
         return $this->sendFail();
