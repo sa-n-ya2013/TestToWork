@@ -6,6 +6,8 @@ use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
@@ -49,13 +51,16 @@ class Handler extends ExceptionHandler
     {
         if (strpos($request->getPathInfo(), '/api') === 0) {
             if ($exception instanceof NotFoundHttpException) {
-                return response()->json(['error' => 'Not found.'], 404);
+                return response()->json(['error' => 'Not found'], Response::HTTP_NOT_FOUND);
             }
             if ($exception instanceof ModelNotFoundException) {
-                return response()->json(['error' => 'Not found.'], 404);
+                return response()->json(['error' => 'Not found'], Response::HTTP_NOT_FOUND);
+            }
+            if ($exception instanceof AccessDeniedHttpException) {
+                return response()->json(['error' => 'Forbidden'], Response::HTTP_FORBIDDEN);
             }
             if($exception instanceof UnauthorizedHttpException) {
-                return response()->json(['error' => 'Unauthenticated.'], 401);
+                return response()->json(['error' => 'Unauthenticated'], Response::HTTP_UNAUTHORIZED);
             }
         }
 

@@ -70,4 +70,15 @@ class Category extends Model
     {
         return $this->hasMany(self::class, 'parent_id');
     }
+
+    public function delete()
+    {
+        foreach ($this->children as $child){
+            if (!$child->delete()) {
+                return false;
+            }
+        }
+
+        return parent::delete();
+    }
 }

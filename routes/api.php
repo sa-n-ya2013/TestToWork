@@ -11,4 +11,6 @@
 */
 Route::post('/user/auth', "Api\\UserController@auth");
 Route::post('/category/get', "Api\\CategoryController@get");
-Route::/*middleware('auth')->*/post('/category/create', "Api\\CategoryController@create");
+Route::post('/category/create', "Api\\CategoryController@create");
+Route::post('/category/update', "Api\\CategoryController@update");
+Route::post('/category/delete', "Api\\CategoryController@delete");

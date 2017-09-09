@@ -31,9 +31,13 @@ class ApiController extends Controller
      *
      * @return Response
      */
-    public function sendFail()
+    public function sendFail($data = null)
     {
-        return response()->json(['message' => self::MESSAGE_FAIL]);
+        if (!is_null($data)) {
+            return response()->json(['message' => self::MESSAGE_FAIL, 'data' => $data]);
+        } else {
+            return response()->json(['message' => self::MESSAGE_FAIL]);
+        }
     }
 
     /**
