@@ -128,12 +128,12 @@ class CategoryController extends ApiController
             throw new AccessDeniedHttpException();
         }
 
-//        DB::beginTransaction();
+        DB::beginTransaction();
         if ($category->delete()) {
-//            DB::commit();
+            DB::commit();
             return $this->sendOK();
         } else {
-//            DB::rollback();
+            DB::rollback();
             return $this->sendFail();
         }
     }
