@@ -7,8 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ApiController extends Controller
 {
-    const SUCCESS_MESSAGE = 'Success';
-    const FAIL_MESSAGE = 'Fail';
+    const MESSAGE_SUCCESS = 'Success';
+    const MESSAGE_FAIL = 'Fail';
     const MESSAGE_BAD_REQUEST = 'Bad request';
 
     /**
@@ -18,7 +18,7 @@ class ApiController extends Controller
      */
     public function sendOK()
     {
-        return response()->json(['message' => self::SUCCESS_MESSAGE]);
+        return response()->json(['message' => self::MESSAGE_SUCCESS]);
     }
 
     /**
@@ -28,7 +28,7 @@ class ApiController extends Controller
      */
     public function sendFail()
     {
-        return response()->json(['message' => self::FAIL_MESSAGE]);
+        return response()->json(['message' => self::MESSAGE_FAIL]);
     }
 
     /**
