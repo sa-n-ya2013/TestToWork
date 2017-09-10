@@ -14,3 +14,7 @@ Route::post('/category/get', "Api\\CategoryController@get");
 Route::post('/category/create', "Api\\CategoryController@create");
 Route::post('/category/update', "Api\\CategoryController@update");
 Route::post('/category/delete', "Api\\CategoryController@delete");
+Route::post('/good/get', "Api\\GoodController@get");
+Route::post('/good/create', "Api\\GoodController@create");
+Route::post('/good/update', "Api\\GoodController@update");
+Route::post('/good/delete', "Api\\GoodController@delete");

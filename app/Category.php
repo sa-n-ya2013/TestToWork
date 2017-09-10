@@ -29,7 +29,7 @@ class Category extends Model
      * @var array
      */
     protected $hidden = [
-//        'deleted_at', 'updated_at'
+        'deleted_at', 'updated_at', 'parent_id', 'user_id'
     ];
 
     /**
@@ -52,7 +52,7 @@ class Category extends Model
      *
      * @return array
      */
-    public function parents($withDelete = false)
+    public function parents()
     {
         $parent = Category::withTrashed()->find($this->parent_id);
         if (is_null($parent)) {
@@ -66,6 +66,11 @@ class Category extends Model
         return $this->belongsTo(self::class);
     }
 
+    public function goods()
+    {
+        return $this->hasMany(Good::class);
+    }
+
     public function children()
     {
         return $this->hasMany(self::class, 'parent_id');
@@ -75,6 +80,11 @@ class Category extends Model
     {
         foreach ($this->children as $child){
             if (!$child->delete()) {
+                return false;
+            }
+        }
+        foreach ($this->goods as $good){
+            if (!$good->delete()) {
                 return false;
             }
         }

@@ -84,7 +84,7 @@ class CategoryController extends ApiController
     {
         $params = [
             'id' => (int)$request->input(self::FIELD_ID, 0),
-            'name' => $request->input(self::FIELD_NAME, 'not empty'),
+            'name' => $request->input(self::FIELD_NAME, ''),
             'description' => $request->input(self::FIELD_DESCRIPTION, ''),
             'parent_id' => (int)$request->input(self::FIELD_PARENT_ID, 0),
         ];
